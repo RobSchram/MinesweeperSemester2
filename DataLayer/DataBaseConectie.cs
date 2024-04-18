@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
 
-namespace TALPA.Data;
+namespace Minesweeper.Data;
 
 
 public class DatabaseConnection
@@ -11,7 +11,7 @@ public class DatabaseConnection
 
     public DatabaseConnection()
     {
-        myConnectionString = "";
+        myConnectionString = "Server=studmysql01.fhict.local;Uid=dbi531101;Database=dbi531101;Pwd=123hello;";
         myConnection = new MySql.Data.MySqlClient.MySqlConnection(myConnectionString);
     }
 
@@ -24,31 +24,18 @@ public class DatabaseConnection
     {
         myConnection.Close();
     }
-
-    public void QeuryDatabase(string Qeury)
+    public void ExecuteQuery(string query)
     {
         try
         {
-            myConnection = new MySql.Data.MySqlClient.MySqlConnection(myConnectionString);
-            //open a connection
-            myConnection.Open();
-
-            // create a MySQL command and set the SQL statement with parameters
-            MySqlCommand myCommand = new MySqlCommand();
-            myCommand.Connection = myConnection;
-            myCommand.CommandText = Qeury;
-            MySqlDataReader rdr = myCommand.ExecuteReader();
-
-
-            while (rdr.Read())
-            {
-                Console.WriteLine(rdr[0] + " -- " + rdr[1]);
-            }
-            myConnection.Close();
+            MySqlCommand cmd = new MySqlCommand(query, myConnection);
+            cmd.ExecuteNonQuery();
+            Console.WriteLine("Query uitgevoerd: " + query);
         }
-        catch (MySql.Data.MySqlClient.MySqlException ex)
+        catch (MySqlException ex)
         {
-            throw new Exception(ex.Message);
+            // Toon een foutmelding als er een probleem optreedt bij het uitvoeren van de query
+            Console.WriteLine($"Fout bij het uitvoeren van de query: {ex.Message}");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LogicLayer;
+using LogicLayer.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,6 @@ namespace LogicLayer
         public int vertical;
         public int minePercent;
         public int amountOfMines;
-        Cell[,] field;
 
         public Field(int minePercent, int horizantal , int vertical)
         {
@@ -21,33 +21,37 @@ namespace LogicLayer
             this.horizontal = horizantal;
             this.vertical = vertical;
         }
-        public Cell[,] Fieldgenerator()
+        public void Fieldgenerator()
         {
+            IStoreData storeData = null;
             for (int h = 0; h < horizontal; h++)
             {
                 for (int v = 0; h < vertical; v++)
                 {
-                    field[horizontal, vertical] = new Cell(false, false);
+                    storeData.StoreCell(h, v, 0, 0, 0);
                 }
             }
-            return field;
+            return;
         }
         public void MineGenerator()
         {
+            IUpdateData updateData = null;
             amountOfMines = (horizontal * vertical) * minePercent;
+            Random random = new Random();
             for (int i = 0; i < amountOfMines; i++)
             {
-                Random random = new Random();
                 int horizontalIndex = random.Next(0, horizontal);
                 int verticalIndex = random.Next(0, vertical);
-                field[horizontalIndex, verticalIndex] = new Cell(false, true);
+                updateData.UpdateCell(1, 0, 0);
             }
         }
         public void MinesArounEachCell()
         {
-            for(int i = 0;i< horizontal; i++)
+            IUpdateData updateData = null;
+            ICellDao cell = null;
+            for(int HorizontalIndex = 0;HorizontalIndex< horizontal; HorizontalIndex++)
             {
-                for (int j = 0; j < vertical; j++)
+                for (int verticalIndex = 0; verticalIndex < vertical; verticalIndex++)
                 {
                     int count = 0;
                     for (int xOffset = -1; xOffset <= 1; xOffset++)
@@ -57,17 +61,25 @@ namespace LogicLayer
                             // Skip the current cell itself
                             if (xOffset == 0 && yOffset == 0) continue;
 
-                            int neighborX = i + xOffset;
-                            int neighborY = j + yOffset;
+                            int neighborX = HorizontalIndex + xOffset;
+                            int neighborY = verticalIndex + yOffset;
 
                             // Check if neighbor cell is within bounds
                             if (neighborX >= 0 && neighborX < horizontal && neighborY >= 0 && neighborY < vertical)
                             {
-                                if (field[neighborX, neighborY].isMine) count++;
+                                var cellVieuwMine = cell.GetCell(neighborX, neighborY);
+                                if (cellVieuwMine.IsMine == 1)count++;
                             }
                         }
                     }
-                    field[i, j].amountOfMinesAroundCell = count;
+                    var cellVieuw = cell.GetCell(HorizontalIndex, verticalIndex);
+                    if (cellVieuw.IsMine != 1)
+                    {
+                        cellVieuw.AmountOfMinesAroundCell = count;
+                        int notMine = 0;
+                        int notVisible = 0;
+                        updateData.UpdateCell(notMine, notVisible,count);
+                    }
                 }
             }
         }
