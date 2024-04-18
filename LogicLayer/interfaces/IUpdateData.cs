@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LogicLayer.interfaces
 {
-    public interface IStoreData
+    public interface IUpdateData
     {
-        void StoreCell(int horizontal, int vertical, int isMine, int isVisible, int amountOfMinesAroundCell);
+        void UpdateCell(int horizontal, int vertical, int isMine, int isVisible, int amountOfMinesAroundCell);
     }
 }

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicLayer.interfaces
 {
-    public interface IStoreData
+    internal interface ICellDao
     {
-        void StoreCell(int horizontal, int vertical, int isMine, int isVisible, int amountOfMinesAroundCell);
     }
 }
