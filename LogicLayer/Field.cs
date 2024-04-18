@@ -42,7 +42,7 @@ namespace LogicLayer
             {
                 int horizontalIndex = random.Next(0, horizontal);
                 int verticalIndex = random.Next(0, vertical);
-                updateData.UpdateCell(horizontalIndex, verticalIndex, 1, 0, 0);
+                updateData.UpdateCell(1, 0, 0);
             }
         }
         public void MinesArounEachCell()
@@ -67,8 +67,8 @@ namespace LogicLayer
                             // Check if neighbor cell is within bounds
                             if (neighborX >= 0 && neighborX < horizontal && neighborY >= 0 && neighborY < vertical)
                             {
-                                var cellVieuw = cell.GetCell(neighborX, neighborY);
-                                if (cellVieuw.IsMine == 1)count++;
+                                var cellVieuwMine = cell.GetCell(neighborX, neighborY);
+                                if (cellVieuwMine.IsMine == 1)count++;
                             }
                         }
                     }
@@ -77,10 +77,9 @@ namespace LogicLayer
                     {
                         cellVieuw.AmountOfMinesAroundCell = count;
                         int notMine = 0;
-                        int notVisible
-                        updateData.UpdateCell(horizontal, vertical, notMine, 0, );
+                        int notVisible = 0;
+                        updateData.UpdateCell(notMine, notVisible,count);
                     }
-                    field[HorizontalIndex, verticalIndex].amountOfMinesAroundCell = count;
                 }
             }
         }

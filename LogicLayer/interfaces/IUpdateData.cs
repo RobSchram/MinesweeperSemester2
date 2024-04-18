@@ -8,6 +8,6 @@ namespace LogicLayer.interfaces
 {
     public interface IUpdateData
     {
-        void UpdateCell(int horizontal, int vertical, int isMine, int isVisible, int amountOfMinesAroundCell);
+        void UpdateCell(int isMine, int isVisible, int amountOfMinesAroundCell);
     }
 }

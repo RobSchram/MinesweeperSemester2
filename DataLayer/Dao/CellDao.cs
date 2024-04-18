@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogicLayer.Dto;
+using LogicLayer.interfaces;
 
 namespace DataLayer.Dao
 {
-    internal class CellDao
+    internal class CellDao : ICellDao
     {
         public CellDto GetCell(int horizontal, int vertical)
         {
-            CellDto cell;
+            CellDto cell = null;
             var query = "Select* FROM cell WHERE x =@horizontal AND y = @vertical";
             DatabaseConnection databaseConnection = new DatabaseConnection();
             databaseConnection.OpenConnection();
@@ -29,11 +30,11 @@ namespace DataLayer.Dao
                 {
                     cell = new CellDto()
                     {
-                        horizontal = (int)reader["x"],
-                        vertical = (int)reader["y"],
-                        isMine = (int)reader["isMine"],
-                        isVisible = (int)reader["isvisible"],
-                        amountOfMinesAroundCell = (int)reader["amountOfMinesAroundCell"]
+                        Horizontal = (int)reader["x"],
+                        Vertical = (int)reader["y"],
+                        IsMine = (int)reader["isMine"],
+                        IsVisible = (int)reader["isvisible"],
+                        AmountOfMinesAroundCell = (int)reader["amountOfMinesAroundCell"]
                     };
 
                 }

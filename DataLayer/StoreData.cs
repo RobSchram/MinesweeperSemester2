@@ -4,7 +4,7 @@ namespace DataLayer
 {
     public class StoreData : IStoreData
     {
-        public void StoreCell(int horizontal, int vertical,int id, int isMine, int isVisible, int amountOfMinesAroundCell)
+        public void StoreCell(int horizontal, int vertical, int isMine, int isVisible, int amountOfMinesAroundCell)
         {
             DatabaseConnection databaseConnection = new DatabaseConnection();
             databaseConnection.OpenConnection();
