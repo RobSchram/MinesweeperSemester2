@@ -1,8 +1,27 @@
 
+using LogicLayer.interfaces;
+using LogicLayer.Service;
+using DataLayer;
+using Minesweeper.Data;
+using LogicLayer.Dto;
+using LogicLayer;
+using DataLayer.Dao;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<DatabaseConnection>();
+builder.Services.AddScoped<IFieldDao, FieldDao>();
+builder.Services.AddScoped<IFieldService, FieldService>();
+builder.Services.AddScoped<IStoreData, StoreData>();
+builder.Services.AddScoped<IClearData, ClearData>();
+builder.Services.AddScoped<AddMines>();
+builder.Services.AddScoped<FieldDataAccess>();
+builder.Services.AddScoped<MinesCounter>();
+builder.Services.AddScoped<CellRevealer>();
+builder.Services.AddScoped<FieldGenerator>();
+
 
 var app = builder.Build();
 

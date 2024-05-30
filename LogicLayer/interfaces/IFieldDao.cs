@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace LogicLayer.interfaces
 {
-    public interface ICellDao
+    public interface IFieldDao
     {
-        CellDto GetCell(int horizontal, int vertical);
+        List<CellDto> GetField();
     }
 }

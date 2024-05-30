@@ -6,8 +6,8 @@ namespace Minesweeper.Data;
 
 public class DatabaseConnection
 {
-    string myConnectionString { get; set; }
-    MySql.Data.MySqlClient.MySqlConnection myConnection { get; set; }
+    public string myConnectionString { get; set; }
+    public MySql.Data.MySqlClient.MySqlConnection myConnection { get; set; }
 
     public DatabaseConnection()
     {

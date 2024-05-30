@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicLayer.interfaces
+namespace LogicLayer.Dto
 {
-    public interface IStoreData
+    public class FieldDto
     {
-        void StoreField(Cell[,] cells);
+        Cell[,] field;
     }
 }

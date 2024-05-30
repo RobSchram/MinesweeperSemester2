@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LogicLayer.interfaces
 {
-    public interface IStoreData
+    public interface IClearData
     {
-        void StoreField(Cell[,] cells);
+        void ClearField();
     }
 }
