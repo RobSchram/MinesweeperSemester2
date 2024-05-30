@@ -1,49 +1,37 @@
-﻿using Minesweeper.Data;
+﻿using LogicLayer;
+using LogicLayer.interfaces;
+using Minesweeper.Data;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogicLayer.Dto;
-using LogicLayer.interfaces;
 
 namespace DataLayer.Dao
 {
-    internal class CellDao : ICellDao
+    public class CellDao : ICellDao
     {
-        public CellDto GetCell(int horizontal, int vertical)
+        public void UpdateCell(Cell cell)
         {
-            CellDto cell = null;
-            var query = "Select* FROM cell WHERE x =@horizontal AND y = @vertical";
             DatabaseConnection databaseConnection = new DatabaseConnection();
-            databaseConnection.OpenConnection();
-            MySqlCommand cmd = new MySqlCommand(query);
             try
             {
-                cmd.Parameters.AddWithValue("@horizontal", horizontal);
-                cmd.Parameters.AddWithValue("@vertical", vertical);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                
-                while (reader.Read())
-                {
-                    cell = new CellDto()
-                    {
-                        Horizontal = (int)reader["x"],
-                        Vertical = (int)reader["y"],
-                        IsMine = (int)reader["isMine"],
-                        IsVisible = (int)reader["isvisible"],
-                        AmountOfMinesAroundCell = (int)reader["amountOfMinesAroundCell"]
-                    };
+                databaseConnection.OpenConnection();
+                string query = "UPDATE Cell SET is_visible = @IsVisible WHERE horizontal = @Horizontal AND vertical = @Vertical";
 
+                using (MySqlCommand cmd = new MySqlCommand(query, databaseConnection.myConnection))
+                {
+                    cmd.Parameters.AddWithValue("@IsVisible", cell.IsVisible);
+                    cmd.Parameters.AddWithValue("@Horizontal", cell.Horizontal);
+                    cmd.Parameters.AddWithValue("@Vertical", cell.Vertical);
+                    cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Fout bij het uitvoeren van de query: {ex.Message}");
             }
-            return cell;
+            finally
+            {
+                databaseConnection.CloseConnection();
+            }
         }
     }
 }

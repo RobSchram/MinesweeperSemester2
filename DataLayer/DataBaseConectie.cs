@@ -6,8 +6,8 @@ namespace Minesweeper.Data;
 
 public class DatabaseConnection
 {
-    string myConnectionString { get; set; }
-    MySql.Data.MySqlClient.MySqlConnection myConnection { get; set; }
+    public string myConnectionString { get; set; }
+    public MySql.Data.MySqlClient.MySqlConnection myConnection { get; set; }
 
     public DatabaseConnection()
     {
@@ -34,7 +34,6 @@ public class DatabaseConnection
         }
         catch (MySqlException ex)
         {
-            // Toon een foutmelding als er een probleem optreedt bij het uitvoeren van de query
             Console.WriteLine($"Fout bij het uitvoeren van de query: {ex.Message}");
         }
     }
