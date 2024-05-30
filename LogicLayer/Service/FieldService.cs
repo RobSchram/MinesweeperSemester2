@@ -6,12 +6,10 @@ namespace LogicLayer.Service
 {
     public class FieldService: IFieldService
     {
-        private readonly FieldDataAccess _fieldDataAccess;
         private readonly CellRevealer _cellRevealer;
         private readonly IFieldDao _fieldDao;
-        public FieldService(FieldDataAccess fieldDataAccess,CellRevealer cellRevealer, IFieldDao fieldDao)
+        public FieldService(CellRevealer cellRevealer, IFieldDao fieldDao)
         {
-            _fieldDataAccess = fieldDataAccess;
             _cellRevealer = cellRevealer;
             _fieldDao = fieldDao;
         }
@@ -21,20 +19,19 @@ namespace LogicLayer.Service
             var generator = new FieldGenerator();
             var field = generator.GenerateField(horizontal, vertical);
 
-            var placer = new AddMines();
-            placer.MinePlacer(field, minePercent);
+            Mines mines = new Mines();
+            mines.Placer(field);
 
-            var counter = new MinesCounter();
-            counter.MinesAroundEachCell(field);
-
-            _fieldDataAccess.StoreField(field);
+            mines.AroundEachCell(field);
+            _fieldDao.ClearField();
+            _fieldDao.StoreField(field);
 
             return field;
         }
 
         public FieldDto GetField()
         {
-            return _fieldDataAccess.GetField();
+            return _fieldDao.GetField();
         }
         public void RevealCell(int row, int col)
         {
@@ -45,7 +42,7 @@ namespace LogicLayer.Service
 
         private Field ConvertToField(FieldDto fieldDto)
         {
-            Field field = new Field(20, fieldDto.Horizontal, fieldDto.Vertical);
+            Field field = new Field(fieldDto.Horizontal, fieldDto.Vertical);
 
             foreach (CellDto cellDto in fieldDto.MineField)
             {

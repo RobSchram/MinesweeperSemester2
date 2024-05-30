@@ -10,5 +10,7 @@ namespace LogicLayer.interfaces
     public interface IFieldDao
     {
         public FieldDto GetField();
+        public void ClearField();
+        public void StoreField(Cell[,] mineField);
     }
 }

@@ -30,7 +30,7 @@
         {
             @foreach (var cell in Model)
             {
-                <div class="cell" data-row="@cell.Vertical" data-col="@cell.Horizontal">
+                <div class="cell" data-row="@cell.Horizontal" data-col="@cell.Vertical">
                     <form action="@Url.Action("CellClick", "Home")" method="post">
                         <input type="hidden" name="row" value="@cell.Vertical" />
                         <input type="hidden" name="col" value="@cell.Horizontal" />

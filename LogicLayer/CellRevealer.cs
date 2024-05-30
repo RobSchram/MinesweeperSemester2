@@ -18,7 +18,7 @@ namespace LogicLayer.Service
                 cell.MakeCellVisible();
                 _cellDao.UpdateCell(cell);
 
-                if (cell.AmountOfMinesAroundCell == 0)
+                if (cell.AmountOfMinesAroundCell == 0 && cell.IsMine != 1)
                 {
                     RevealAdjacentCells(MineField, cell);
                 }

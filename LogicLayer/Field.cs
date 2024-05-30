@@ -9,12 +9,10 @@ namespace LogicLayer
     {
         public int Horizontal {  get; }
         public int Vertical { get;  }
-        public decimal MinePercent { get; }
         public Cell[,] MineField { get;}
 
-        public Field(int minePercent, int horizontal, int vertical)
+        public Field(int horizontal, int vertical)
         {
-            this.MinePercent = minePercent;
             this.Horizontal = horizontal;
             this.Vertical = vertical;
             MineField = new Cell[horizontal, vertical];

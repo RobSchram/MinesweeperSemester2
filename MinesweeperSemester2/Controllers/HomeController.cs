@@ -85,7 +85,7 @@ namespace MinesweeperSemester2.Controllers
         [HttpPost]
         public IActionResult CellClick(int row, int col)
         {
-            _fieldService.RevealCell(col, row);
+            _fieldService.RevealCell(row, col);
             return LoadGame();
         }
 
