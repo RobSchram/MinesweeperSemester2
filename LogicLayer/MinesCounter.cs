@@ -29,14 +29,14 @@ namespace LogicLayer
                             if (neighborX >= 0 && neighborX < horizontal && neighborY >= 0 && neighborY < vertical)
                             {
                                 Cell cellViewMine = field[neighborX, neighborY];
-                                if (cellViewMine.isMine == 1) count++;
+                                if (cellViewMine.IsMine == 1) count++;
                             }
                         }
                     }
                     Cell cellView = field[h, v];
-                    if (cellView.isMine != 1)
+                    if (cellView.IsMine != 1)
                     {
-                        cellView.amountOfMinesAroundCell = count;
+                        cellView.SetMinesAroundCell(count);
                     }
                 }
             }

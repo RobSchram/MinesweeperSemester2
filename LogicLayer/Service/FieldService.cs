@@ -7,51 +7,49 @@ namespace LogicLayer.Service
     public class FieldService: IFieldService
     {
         private readonly FieldDataAccess _fieldDataAccess;
-        private readonly AddMines _addMines;
-        private readonly FieldGenerator _fieldGenerator;
-        private readonly MinesCounter _minesCounter;
         private readonly CellRevealer _cellRevealer;
         private readonly IFieldDao _fieldDao;
-        public FieldService(FieldGenerator fieldGenerator,AddMines addMines, FieldDataAccess fieldDataAccess, MinesCounter minesCounter, CellRevealer cellRevealer, IFieldDao fieldDao)
+        public FieldService(FieldDataAccess fieldDataAccess,CellRevealer cellRevealer, IFieldDao fieldDao)
         {
-            _fieldGenerator = fieldGenerator;
-            _minesCounter = minesCounter;
             _fieldDataAccess = fieldDataAccess;
-            _addMines = addMines;
             _cellRevealer = cellRevealer;
             _fieldDao = fieldDao;
         }
         public Cell[,] GenerateField(int horizontal, int vertical, decimal minePercent)
         {
-            var field = _fieldGenerator.GenerateField(horizontal, vertical);
-            _addMines.MinePlacer(field, minePercent);
-            _minesCounter.MinesAroundEachCell(field);
+
+            var generator = new FieldGenerator();
+            var field = generator.GenerateField(horizontal, vertical);
+
+            var placer = new AddMines();
+            placer.MinePlacer(field, minePercent);
+
+            var counter = new MinesCounter();
+            counter.MinesAroundEachCell(field);
+
             _fieldDataAccess.StoreField(field);
+
             return field;
         }
 
-        public List<CellDto> GetField()
+        public FieldDto GetField()
         {
             return _fieldDataAccess.GetField();
         }
         public void RevealCell(int row, int col)
         {
             var fieldDto = _fieldDao.GetField();
-            fieldDto = _cellRevealer.RevealCell(fieldDto, row, col);
-            var field = ConvertToCellArray(fieldDto);
-            _fieldDataAccess.StoreField(field);
+            Field field = ConvertToField(fieldDto);
+            _cellRevealer.RevealCell(field.MineField[row, col], field.MineField);
         }
 
-        private Cell[,] ConvertToCellArray(List<CellDto> fieldDto)
+        private Field ConvertToField(FieldDto fieldDto)
         {
-            int horizontalSize = fieldDto.Max(c => c.Horizontal) + 1;
-            int verticalSize = fieldDto.Max(c => c.Vertical) + 1;
+            Field field = new Field(20, fieldDto.Horizontal, fieldDto.Vertical);
 
-            Cell[,] field = new Cell[horizontalSize, verticalSize];
-
-            foreach (var cellDto in fieldDto)
+            foreach (CellDto cellDto in fieldDto.MineField)
             {
-                field[cellDto.Horizontal, cellDto.Vertical] = new Cell(
+                field.MineField[cellDto.Horizontal, cellDto.Vertical] = new Cell(
                     cellDto.Horizontal,
                     cellDto.Vertical,
                     cellDto.IsMine,
@@ -61,6 +59,7 @@ namespace LogicLayer.Service
             }
 
             return field;
+
         }
 
     }

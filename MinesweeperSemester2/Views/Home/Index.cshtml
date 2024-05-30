@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Minesweeper</title>
     <style>
         #minesweeper-grid {
             display: grid;
@@ -33,7 +34,7 @@
                     <form action="@Url.Action("CellClick", "Home")" method="post">
                         <input type="hidden" name="row" value="@cell.Vertical" />
                         <input type="hidden" name="col" value="@cell.Horizontal" />
-                        @if(cell.IsVisible == 1)
+                        @if (cell.IsVisible == 1)
                         {
                             if (cell.IsMine == 1)
                             {

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LogicLayer.interfaces
 {
-    public interface IUpdateData
+    public interface ICellDao
     {
-        void UpdateCell(int isMine, int isVisible, int amountOfMinesAroundCell);
+        public void UpdateCell(Cell cell);
     }
 }

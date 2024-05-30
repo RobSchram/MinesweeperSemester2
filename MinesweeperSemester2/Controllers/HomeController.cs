@@ -17,17 +17,11 @@ namespace MinesweeperSemester2.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IFieldService _fieldService;
-        private readonly IStoreData _storeData;
-        private readonly IFieldDao _fieldDao;
-        private readonly IClearData _clearData;
 
-        public HomeController(ILogger<HomeController> logger,IFieldService fieldService, IStoreData storeData, IFieldDao fieldDao, IClearData clearData)
+        public HomeController(ILogger<HomeController> logger,IFieldService fieldService)
         {
             _fieldService = fieldService;
-            _storeData = storeData;
-            _fieldDao = fieldDao;
             _logger = logger;
-            _clearData = clearData;
         }
         public IActionResult Index()
         {
@@ -51,11 +45,11 @@ namespace MinesweeperSemester2.Controllers
             {
                 CellModel cellViewModel = new CellModel
                 {
-                    Horizontal = cell.horizontal,
-                    Vertical = cell.vertical,
-                    IsMine = cell.isMine,
-                    IsVisible = cell.isVisible,
-                    MinesAroundCell = cell.amountOfMinesAroundCell,
+                    Horizontal = cell.Horizontal,
+                    Vertical = cell.Vertical,
+                    IsMine = cell.IsMine,
+                    IsVisible = cell.IsVisible,
+                    MinesAroundCell = cell.AmountOfMinesAroundCell,
                 };
 
                 cellViewModels.Add(cellViewModel);
@@ -69,10 +63,10 @@ namespace MinesweeperSemester2.Controllers
         [HttpPost]
         public IActionResult LoadGame()
         {
-            List<CellDto> field = _fieldService.GetField();
+            FieldDto field = _fieldService.GetField();
             List<CellModel> cellViewModels = new List<CellModel>();
 
-            foreach (CellDto cell in field)
+            foreach (CellDto cell in field.MineField)
             {
                 CellModel cellViewModel = new CellModel
                 {
@@ -91,7 +85,7 @@ namespace MinesweeperSemester2.Controllers
         [HttpPost]
         public IActionResult CellClick(int row, int col)
         {
-            _fieldService.RevealCell(row, col);
+            _fieldService.RevealCell(col, row);
             return LoadGame();
         }
 

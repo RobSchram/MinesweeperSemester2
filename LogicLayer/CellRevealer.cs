@@ -1,41 +1,52 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using LogicLayer.Dto;
+using LogicLayer.interfaces;
 
 namespace LogicLayer.Service
 {
     public class CellRevealer
     {
-        public List<CellDto> RevealCell(List<CellDto> field, int row, int col)
+        readonly ICellDao _cellDao;
+        public CellRevealer(ICellDao cellDao)
         {
-            var cell = field.FirstOrDefault(c => c.Vertical == row && c.Horizontal == col);
+            _cellDao = cellDao;
+        }
+        public void RevealCell(Cell cell , Cell[,] MineField)
+        {
             if (cell != null)
             {
-                cell.IsVisible = 1;
+                cell.MakeCellVisible();
+                _cellDao.UpdateCell(cell);
+
                 if (cell.AmountOfMinesAroundCell == 0)
                 {
-                    RevealAdjacentCells(field, row, col);
+                    RevealAdjacentCells(MineField, cell);
                 }
             }
-            return field;
+            return;
         }
 
-        private void RevealAdjacentCells(List<CellDto> field, int row, int col)
+        private void RevealAdjacentCells(Cell[,] field, Cell cell)
         {
-            var adjacentCells = field.Where(c =>
-                c.Vertical >= row - 1 && c.Vertical <= row + 1 &&
-                c.Horizontal >= col - 1 && c.Horizontal <= col + 1 &&
-                !(c.Vertical == row && c.Horizontal == col)).ToList();
+            int rows = field.GetLength(0);
+            int cols = field.GetLength(1);
 
-            foreach (var cell in adjacentCells)
+            for (int r = cell.Horizontal - 1; r <= cell.Horizontal + 1; r++)
             {
-                if (cell.IsVisible == 0 && cell.IsMine == 0)
+                for (int c = cell.Vertical - 1; c <= cell.Vertical + 1; c++)
                 {
-                    cell.IsVisible = 1;
-
-                    if (cell.AmountOfMinesAroundCell == 0)
+                    if (r >= 0 && r < rows && c >= 0 && c < cols && !(r == cell.Horizontal && c == cell.Vertical))
                     {
-                        RevealAdjacentCells(field, cell.Vertical, cell.Horizontal);
+                        var newCell = field[r, c];
+                        if (newCell.IsVisible == 0 && newCell.IsMine == 0)
+                        {
+                            newCell.MakeCellVisible();
+                            _cellDao.UpdateCell(newCell);
+                            if (newCell.AmountOfMinesAroundCell == 0)
+                            {
+                                RevealAdjacentCells(field, newCell);
+                            }
+                        }
                     }
                 }
             }

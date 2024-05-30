@@ -20,7 +20,7 @@ public class FieldDataAccess : IFieldDao
         clearData.ClearField();
         storeData.StoreField(field);
     }
-    public List<CellDto> GetField()
+    public FieldDto GetField()
     {
         return _fieldDao.GetField();
     }

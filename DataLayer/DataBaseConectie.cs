@@ -34,7 +34,6 @@ public class DatabaseConnection
         }
         catch (MySqlException ex)
         {
-            // Toon een foutmelding als er een probleem optreedt bij het uitvoeren van de query
             Console.WriteLine($"Fout bij het uitvoeren van de query: {ex.Message}");
         }
     }

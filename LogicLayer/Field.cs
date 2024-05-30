@@ -7,18 +7,17 @@ namespace LogicLayer
 {
     public class Field 
     {
-        public int horizontal;
-        public int vertical;
-        public decimal minePercent;
-        public decimal amountOfMines;
-        public Cell[,] field;
+        public int Horizontal {  get; }
+        public int Vertical { get;  }
+        public decimal MinePercent { get; }
+        public Cell[,] MineField { get;}
 
         public Field(int minePercent, int horizontal, int vertical)
         {
-            this.minePercent = minePercent;
-            this.horizontal = horizontal;
-            this.vertical = vertical;
-            field = new Cell[horizontal, vertical];
+            this.MinePercent = minePercent;
+            this.Horizontal = horizontal;
+            this.Vertical = vertical;
+            MineField = new Cell[horizontal, vertical];
         }
     }
 }

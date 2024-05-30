@@ -15,13 +15,12 @@ namespace LogicLayer
             minePercent = 0.2m;
             decimal amountOfMines = Convert.ToDecimal( horizontal * vertical)*minePercent;
 
-
             Random random = new Random();
             for (int i = 0; i < amountOfMines; i++)
             {
                 int horizontalIndex = random.Next(0, horizontal);
                 int verticalIndex = random.Next(0, vertical);
-                if (field[horizontalIndex, verticalIndex].isMine == 1)
+                if (field[horizontalIndex, verticalIndex].IsMine == 1)
                 {
                     i--;
                 }

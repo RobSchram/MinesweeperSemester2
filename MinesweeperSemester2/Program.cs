@@ -21,6 +21,8 @@ builder.Services.AddScoped<FieldDataAccess>();
 builder.Services.AddScoped<MinesCounter>();
 builder.Services.AddScoped<CellRevealer>();
 builder.Services.AddScoped<FieldGenerator>();
+builder.Services.AddScoped<ICellDao , CellDao>();
+
 
 
 var app = builder.Build();

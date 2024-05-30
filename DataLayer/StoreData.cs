@@ -28,11 +28,11 @@ namespace DataLayer
 
                     using (MySqlCommand cmd = new MySqlCommand(query, _databaseConnection.myConnection))
                     {
-                        cmd.Parameters.AddWithValue("@horizontal", cell.horizontal);
-                        cmd.Parameters.AddWithValue("@vertical", cell.vertical);
-                        cmd.Parameters.AddWithValue("@is_mine", cell.isMine);
-                        cmd.Parameters.AddWithValue("@is_visible", cell.isVisible);
-                        cmd.Parameters.AddWithValue("@amount_of_mines_around_cell", cell.amountOfMinesAroundCell);
+                        cmd.Parameters.AddWithValue("@horizontal", cell.Horizontal);
+                        cmd.Parameters.AddWithValue("@vertical", cell.Vertical);
+                        cmd.Parameters.AddWithValue("@is_mine", cell.IsMine);
+                        cmd.Parameters.AddWithValue("@is_visible", cell.IsVisible);
+                        cmd.Parameters.AddWithValue("@amount_of_mines_around_cell", cell.AmountOfMinesAroundCell);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -41,7 +41,6 @@ namespace DataLayer
             }
             catch (Exception ex)
             {
-                // Behandel de uitzondering
                 Console.WriteLine("Error: " + ex.Message);
             }
             finally

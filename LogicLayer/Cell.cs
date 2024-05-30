@@ -10,28 +10,34 @@ namespace LogicLayer
 
     public class Cell
     {
-        public int horizontal;
-        public int vertical;
-        public int isMine;
-        public int isVisible;
-        public int amountOfMinesAroundCell;
+        public int Horizontal { get; }
+        public int Vertical { get; }
+        public int IsMine { get; private set; }
+        public int IsVisible {  get; private set; }
+        public int AmountOfMinesAroundCell { get; private set; }
         public Cell(int horizontal, int vertical, int isMine, int isVisible, int amountOfMinesAroundCell) 
         {
-            this.horizontal = horizontal;
-            this.vertical = vertical;
-            this.isMine = isMine;
-            this.isVisible = isVisible;
-            this.amountOfMinesAroundCell = amountOfMinesAroundCell;
+            this.Horizontal = horizontal;
+            this.Vertical = vertical;
+            this.IsMine = isMine;
+            this.IsVisible = isVisible;
+            this.AmountOfMinesAroundCell = amountOfMinesAroundCell;
 
         }
         public void MakeCellVisible()
         {
-            isVisible = 1;
+            IsVisible = 1;
             return;
         }
         public void MakeCellMine()
         {
-            isMine = 1;
+            IsMine = 1;
+            return;
+        }
+        public void SetMinesAroundCell(int amount)
+        {
+            if(amount<9 && amount>= 0)
+            AmountOfMinesAroundCell = amount;
             return;
         }
     }

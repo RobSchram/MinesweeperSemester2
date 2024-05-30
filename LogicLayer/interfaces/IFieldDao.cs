@@ -9,6 +9,6 @@ namespace LogicLayer.interfaces
 {
     public interface IFieldDao
     {
-        List<CellDto> GetField();
+        public FieldDto GetField();
     }
 }
