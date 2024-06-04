@@ -11,6 +11,6 @@ namespace LogicLayer.interfaces
     {
         public Cell[,] GenerateField(int horizontal, int vertical, decimal minePercent);
         public FieldDto GetField();
-        public void RevealCell(int row, int col);
+        public string RevealCell(int row, int col);
     }
 }

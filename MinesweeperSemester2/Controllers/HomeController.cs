@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using MinesweeperSemester2.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using web.Models;
 
 namespace MinesweeperSemester2.Controllers
@@ -34,12 +35,16 @@ namespace MinesweeperSemester2.Controllers
         [HttpPost]
         public IActionResult StartGame()
         {
-            int minePercent = 20;
+            decimal minePercent = 0.15m;
             int horizontal = 10;
             int vertical = 10;
 
             var field = _fieldService.GenerateField(horizontal,vertical, minePercent);
-            List<CellModel> cellViewModels = new List<CellModel>();
+            FieldModel fieldModel = new FieldModel
+            {
+                field = new CellModel[horizontal, vertical],
+                GameStatus = "In progress"
+            };
 
             foreach (var cell in field)
             {
@@ -52,19 +57,25 @@ namespace MinesweeperSemester2.Controllers
                     MinesAroundCell = cell.AmountOfMinesAroundCell,
                 };
 
-                cellViewModels.Add(cellViewModel);
+                fieldModel.field[cell.Horizontal, cell.Vertical] = cellViewModel;
             }
-
-            return View("Index", cellViewModels);
+            return View("Index", fieldModel);
         }
 
 
 
         [HttpPost]
-        public IActionResult LoadGame()
+        public IActionResult LoadGame(string gameStatus)
         {
+            if (gameStatus == null)
+            {
+                gameStatus = "In progress";
+            }
             FieldDto field = _fieldService.GetField();
-            List<CellModel> cellViewModels = new List<CellModel>();
+            FieldModel mineField = new FieldModel
+            {
+                field = new CellModel[field.MineField.GetLength(0), field.MineField.GetLength(1)],
+            };
 
             foreach (CellDto cell in field.MineField)
             {
@@ -77,16 +88,16 @@ namespace MinesweeperSemester2.Controllers
                     MinesAroundCell = cell.AmountOfMinesAroundCell,
                 };
 
-                cellViewModels.Add(cellViewModel);
+               mineField.field[cell.Horizontal, cell.Vertical] = cellViewModel;
             }
-
-            return View("Index", cellViewModels);
+            mineField.GameStatus = gameStatus;
+            return View("Index", mineField);
         }
         [HttpPost]
         public IActionResult CellClick(int row, int col)
         {
-            _fieldService.RevealCell(row, col);
-            return LoadGame();
+            string gameStatus =_fieldService.RevealCell(col, row);
+            return LoadGame(gameStatus);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

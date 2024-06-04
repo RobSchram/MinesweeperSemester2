@@ -1,4 +1,4 @@
-﻿@model List<web.Models.CellModel>
+﻿@model web.Models.FieldModel
 
 <!DOCTYPE html>
 <html>
@@ -9,6 +9,10 @@
             display: grid;
             grid-template-columns: repeat(10, 30px);
             grid-template-rows: repeat(10, 30px);
+        }
+        #model{
+            display: flex;
+            flex-direction: column;
         }
 
         .cell {
@@ -25,32 +29,66 @@
     <form action="@Url.Action("LoadGame", "Home")" method="post">
         <button type="submit">Load game</button>
     </form>
-    <div id="minesweeper-grid">
+    <div id="model" >
         @if (Model != null)
         {
-            @foreach (var cell in Model)
+            if (Model.GameStatus != "In progress")
             {
-                <div class="cell" data-row="@cell.Horizontal" data-col="@cell.Vertical">
-                    <form action="@Url.Action("CellClick", "Home")" method="post">
-                        <input type="hidden" name="row" value="@cell.Vertical" />
-                        <input type="hidden" name="col" value="@cell.Horizontal" />
-                        @if (cell.IsVisible == 1)
-                        {
-                            if (cell.IsMine == 1)
+                <h2> @Model.GameStatus</h2>
+                <div id="minesweeper-grid">
+                @foreach (var cell in Model.field)
+                {
+                    <div class="cell" data-row="@cell.Horizontal" data-col="@cell.Vertical">
+                        <form method="post">
+                            @if (cell.IsVisible == 1)
                             {
-                                <button type="submit" name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: red;"></button>
+                                if (cell.IsMine == 1)
+                                {
+                                    <div name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: red;"></div>
+                                }
+                                else
+                                {
+                                    <div  name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: gray;">@cell.MinesAroundCell</div>
+                                }
                             }
                             else
                             {
-                                <button type="submit" name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: gray;">@cell.MinesAroundCell</button>
+                                <div name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: white;"></div>
                             }
-                        }
-                        else
-                        {
-                            <button type="submit" name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: white;"></button>
-                        }
 
-                    </form>
+                        </form>
+                    </div>
+                }
+                </div>
+            }
+            else
+            {
+                    <div id="minesweeper-grid">
+                @foreach (var cell in Model.field)
+                {
+                    <div class="cell" data-row="@cell.Horizontal" data-col="@cell.Vertical">
+                        <form action="@Url.Action("CellClick", "Home")" method="post">
+                            <input type="hidden" name="row" value="@cell.Vertical" />
+                            <input type="hidden" name="col" value="@cell.Horizontal" />
+                            @if (cell.IsVisible == 1)
+                            {
+                                if (cell.IsMine == 1)
+                                {
+                                    <button type="submit" name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: red;"></button>
+                                }
+                                else
+                                {
+                                    <button type="submit" name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: gray;">@cell.MinesAroundCell</button>
+                                }
+                            }
+                            else
+                            {
+                                <button type="submit" name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: white;"></button>
+                            }
+
+                        </form>
+                    </div>
+                }
                 </div>
             }
         }

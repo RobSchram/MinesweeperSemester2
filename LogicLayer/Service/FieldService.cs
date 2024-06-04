@@ -33,11 +33,13 @@ namespace LogicLayer.Service
         {
             return _fieldDao.GetField();
         }
-        public void RevealCell(int row, int col)
+        public string RevealCell(int row, int col)
         {
+            GameProgress gameProgress = new GameProgress();
             var fieldDto = _fieldDao.GetField();
             Field field = ConvertToField(fieldDto);
             _cellRevealer.RevealCell(field.MineField[row, col], field.MineField);
+            return gameProgress.GameStatus(field.MineField);
         }
 
         private Field ConvertToField(FieldDto fieldDto)
