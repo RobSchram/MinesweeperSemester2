@@ -18,6 +18,8 @@ builder.Services.AddScoped<Mines>();
 builder.Services.AddScoped<CellRevealer>();
 builder.Services.AddScoped<FieldGenerator>();
 builder.Services.AddScoped<ICellDao , CellDao>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAccountDao , AccountDao>();
 
 
 

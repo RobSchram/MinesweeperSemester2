@@ -1,0 +1,24 @@
+﻿@model AccountModel
+
+<!DOCTYPE html>
+<html>
+<body>
+        <h2>Login</h2>
+        <form method="get" action="@Url.Action("register", "Account")">
+            <button type="submit">Sign up</button>
+        </form>
+    
+
+    <form method="post">
+        <h2>Username</h2>
+        <input type="text" name="Username" value="@Model.Username" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+
+        <h2>Password</h2>
+        <input type="password" name="Password" value="@Model.Password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+</html>
