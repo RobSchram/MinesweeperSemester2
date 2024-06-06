@@ -54,7 +54,7 @@ namespace DataLayer.Dao
             }
             return false;
         }
-        public ApplicationUser SearchAccount(string userName)
+        public ApplicationUser? SearchAccount(string userName)
         {
             try
             {
@@ -71,9 +71,9 @@ namespace DataLayer.Dao
                             while (reader.Read())
                             {
                                 ApplicationUser user = new ApplicationUser();
-                                user.UserName = userName;
-                                user.Password = (string)reader["password"];
-                                user.Id = (int)reader["user_id"];
+                                user.SetUserName (userName);
+                                user.SetPassWord( (string)reader["password"]);
+                                user.SetId ( (int)reader["user_id"]);
                                 Console.WriteLine($"User ID: {reader["user_id"]}, User Name: {reader["name"]}");
                                 return user ;
                             }

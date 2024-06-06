@@ -36,7 +36,7 @@ namespace MinesweeperSemester2.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult StartGame( int horizontal, int vertical, decimal minePercent)
+        public IActionResult StartGame(int horizontal, int vertical, decimal minePercent)
         {
             minePercent = minePercent / 100;
             int userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);

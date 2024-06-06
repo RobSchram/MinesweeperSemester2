@@ -67,7 +67,6 @@ namespace MineSweeperSemester2Test
             Mines mines = new Mines();
             decimal minePercent = 0.15m;
             mines.Placer(field, minePercent);
-            int count = 0;
             mines.AroundEachCell(field);
             for (int j = 0; j < horizontal; j++)
             {
