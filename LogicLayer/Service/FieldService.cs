@@ -1,10 +1,9 @@
 ﻿using LogicLayer.Dto;
 using LogicLayer.interfaces;
-using System.Collections.Generic;
 
 namespace LogicLayer.Service
 {
-    public class FieldService: IFieldService
+    public class FieldService : IFieldService
     {
         private readonly CellRevealer _cellRevealer;
         private readonly IFieldDao _fieldDao;
@@ -14,11 +13,11 @@ namespace LogicLayer.Service
             _cellRevealer = cellRevealer;
         }
 
-        public Cell[,] GenerateField(int gameId,int horizontal, int vertical, decimal minePercent)
+        public Cell[,] GenerateField(int gameId, int horizontal, int vertical, decimal minePercent)
         {
 
             var generator = new FieldGenerator();
-            var field = generator.GenerateField(gameId,horizontal, vertical);
+            var field = generator.GenerateField(gameId, horizontal, vertical);
 
             Mines mines = new Mines();
             mines.Placer(field, minePercent);

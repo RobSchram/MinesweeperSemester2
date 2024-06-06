@@ -2,7 +2,6 @@
 using LogicLayer.interfaces;
 using Minesweeper.Data;
 using MySql.Data.MySqlClient;
-using System;
 
 namespace DataLayer.Dao
 {
@@ -21,7 +20,7 @@ namespace DataLayer.Dao
                     cmd.Parameters.AddWithValue("@IsVisible", cell.IsVisible);
                     cmd.Parameters.AddWithValue("@Horizontal", cell.Horizontal);
                     cmd.Parameters.AddWithValue("@Vertical", cell.Vertical);
-                    cmd.Parameters.AddWithValue("@gameId" , cell.GameId);
+                    cmd.Parameters.AddWithValue("@gameId", cell.GameId);
                     cmd.ExecuteNonQuery();
                 }
             }

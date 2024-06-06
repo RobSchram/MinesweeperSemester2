@@ -1,12 +1,10 @@
 
+using DataLayer.Dao;
+using LogicLayer;
 using LogicLayer.interfaces;
 using LogicLayer.Service;
-using DataLayer;
-using Minesweeper.Data;
-using LogicLayer.Dto;
-using LogicLayer;
-using DataLayer.Dao;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Minesweeper.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,11 +16,11 @@ builder.Services.AddScoped<IFieldService, FieldService>();
 builder.Services.AddScoped<Mines>();
 builder.Services.AddScoped<CellRevealer>();
 builder.Services.AddScoped<FieldGenerator>();
-builder.Services.AddScoped<ICellDao , CellDao>();
+builder.Services.AddScoped<ICellDao, CellDao>();
 builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IAccountDao , AccountDao>();
-builder.Services.AddScoped<IGameDao , GameDao>();
-builder.Services.AddScoped<IGameService , GameService>();
+builder.Services.AddScoped<IAccountDao, AccountDao>();
+builder.Services.AddScoped<IGameDao, GameDao>();
+builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<Game>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

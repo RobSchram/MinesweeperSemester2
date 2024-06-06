@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicLayer.Dto
+﻿namespace LogicLayer.Dto
 {
     public class CellDto
     {
@@ -13,6 +7,6 @@ namespace LogicLayer.Dto
         public int IsMine { get; set; }
         public int IsVisible { get; set; }
         public int AmountOfMinesAroundCell { get; set; }
-        public int GameId {  get; set; }
+        public int GameId { get; set; }
     }
 }

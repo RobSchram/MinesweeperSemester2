@@ -1,18 +1,13 @@
 ﻿using LogicLayer.interfaces;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicLayer.Service
 {
-    public class AccountService :IAccountService
+    public class AccountService : IAccountService
     {
         private readonly IAccountDao _accountDao;
         private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
-        public AccountService(IAccountDao accountDao) 
+        public AccountService(IAccountDao accountDao)
         {
             _passwordHasher = new PasswordHasher<ApplicationUser>();
             _accountDao = accountDao;

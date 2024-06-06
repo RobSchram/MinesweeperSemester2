@@ -1,5 +1,4 @@
-﻿using web;
-namespace web.Models
+﻿namespace web.Models
 
 {
     public class FieldModel

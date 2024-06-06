@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LogicLayer.Dto.CellDto">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAgAAABAEAAAAAEAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\CellDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogicLayer.Dto.FieldDto">
+    <Position X="5.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAFAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\FieldDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogicLayer.Service.AccountService" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAQIEAAAAAAACAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Service\AccountService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LogicLayer.Service.FieldService" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABEAAAgAAAAAAAAAEAAACAAAAAAACAAAABAAAAAAA=</HashCode>
+      <FileName>Service\FieldService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="LogicLayer.Service.GameService" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAQAAAAAACAAAAACAQAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Service\GameService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LogicLayer.Service.CellRevealer">
+    <Position X="7.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAACAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>CellRevealer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogicLayer.ApplicationUser">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAIAAIAAAAAAAAAAAAAAAAAACARAAAAAAAAA=</HashCode>
+      <FileName>ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogicLayer.Cell">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAgAAAFAEAAAAAEAgAIAAAAAQAAAAAAAABAAAAA=</HashCode>
+      <FileName>Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogicLayer.Field">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Field.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogicLayer.FieldGenerator">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FieldGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogicLayer.Game">
+    <Position X="4" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAgAAAAAAAgAAAAAEBAAgAA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogicLayer.GameProgress">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>GameProgress.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogicLayer.Mines">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEAAAAAAAAA=</HashCode>
+      <FileName>Mines.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="LogicLayer.interfaces.IAccountDao">
+    <Position X="11.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>interfaces\IAccountDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LogicLayer.interfaces.IAccountService">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQIEAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>interfaces\IAccountService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LogicLayer.interfaces.ICellDao">
+    <Position X="10" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>interfaces\ICellDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LogicLayer.interfaces.IFieldDao">
+    <Position X="11.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>interfaces\IFieldDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LogicLayer.interfaces.IFieldService">
+    <Position X="10" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAEAAACAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>interfaces\IFieldService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LogicLayer.interfaces.IGameDao">
+    <Position X="10" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAECAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>interfaces\IGameDao.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LogicLayer.interfaces.IGameService">
+    <Position X="11.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAACAAAAACAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>interfaces\IGameService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

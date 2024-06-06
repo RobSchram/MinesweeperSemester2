@@ -1,15 +1,10 @@
-﻿using LogicLayer.Dto;
-using LogicLayer.interfaces;
-using System;
-using System.Collections.Generic;
-
-namespace LogicLayer
+﻿namespace LogicLayer
 {
-    public class Field 
+    public class Field
     {
-        public int Horizontal {  get; }
-        public int Vertical { get;  }
-        public Cell[,] MineField { get;}
+        public int Horizontal { get; }
+        public int Vertical { get; }
+        public Cell[,] MineField { get; }
 
         public Field(int horizontal, int vertical)
         {

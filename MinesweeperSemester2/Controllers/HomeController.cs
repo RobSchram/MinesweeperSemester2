@@ -1,15 +1,9 @@
-using DataLayer;
-using DataLayer.Dao;
 using LogicLayer;
 using LogicLayer.Dto;
 using LogicLayer.interfaces;
-using LogicLayer.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using MinesweeperSemester2.Models;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Security.Claims;
 using web.Models;
 

@@ -3,8 +3,6 @@ using LogicLayer.Dto;
 using LogicLayer.interfaces;
 using Minesweeper.Data;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 
 namespace DataLayer.Dao
 {
@@ -106,7 +104,7 @@ namespace DataLayer.Dao
             try
             {
                 _databaseConnection.OpenConnection();
-                
+
                 MySqlCommand cmdHorizontal = new MySqlCommand(queryHorizontal, _databaseConnection.myConnection);
                 cmdHorizontal.Parameters.AddWithValue("@gameId", gameId);
                 horizontal = Convert.ToInt32(cmdHorizontal.ExecuteScalar());

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogicLayer.interfaces;
+﻿using LogicLayer.interfaces;
 
 namespace LogicLayer.Service
 {
@@ -11,8 +6,8 @@ namespace LogicLayer.Service
     {
         private readonly IGameDao _gameDao;
         private readonly IFieldService _fieldService;
-        
-        
+
+
         public GameService(IGameDao gameDao, IFieldService fieldService)
         {
             _gameDao = gameDao;
@@ -26,10 +21,10 @@ namespace LogicLayer.Service
         {
             return _gameDao.GetGameById(gameId);
         }
-        public Game UpdateGameStatus(Game game) 
+        public Game UpdateGameStatus(Game game)
         {
             string gamestatus = _fieldService.GetGameStatus(game.GameId);
-            game.SetGameProgress( gamestatus);
+            game.SetGameProgress(gamestatus);
             _gameDao.UpdateGameStatus(game.GameId, gamestatus);
             return game;
         }

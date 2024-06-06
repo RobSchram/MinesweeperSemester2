@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicLayer
+﻿namespace LogicLayer
 {
     public class GameProgress
     {
@@ -17,7 +11,7 @@ namespace LogicLayer
                 for (int j = 0; j < fieldWithd; j++)
                 {
                     if (field[i, j].IsMine == 1 && field[i, j].IsVisible == 1) return "Lost";
-                    
+
                 }
             }
             for (int i = 0; i < fieldLength; i++)

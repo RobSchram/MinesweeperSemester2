@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using LogicLayer.Dto;
-using LogicLayer.interfaces;
+﻿using LogicLayer.interfaces;
 
 namespace LogicLayer.Service
 {
@@ -11,7 +9,7 @@ namespace LogicLayer.Service
         {
             _cellDao = cellDao;
         }
-        public void RevealCell(Cell cell , Cell[,] MineField)
+        public void RevealCell(Cell cell, Cell[,] MineField)
         {
             if (cell != null)
             {

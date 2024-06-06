@@ -1,9 +1,9 @@
-﻿using LogicLayer.interfaces;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using LogicLayer;
+using LogicLayer.interfaces;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using LogicLayer;
 
 public class AccountController : Controller
 {
@@ -35,9 +35,9 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> LogIn(AccountModel model)
     {
-        
+
         ApplicationUser user = _accountService.SearchAccount(model.Username);
-        if (user != null &&_accountService.VerifyPassword(user.Password, model.Password))
+        if (user != null && _accountService.VerifyPassword(user.Password, model.Password))
         {
             var claims = new List<Claim>
             {

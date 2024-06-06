@@ -17,7 +17,7 @@ namespace MineSweeperSemester2Test
             int horizontal = 10;
             int vertical = 10;
             FieldGenerator fieldGenerator = new FieldGenerator();
-            var field = fieldGenerator.GenerateField(5,horizontal, vertical);
+            var field = fieldGenerator.GenerateField(5, horizontal, vertical);
             int fieldLength = field.GetLength(0);
             int fieldWidth = field.GetLength(1);
             int fieldSize = fieldLength * fieldWidth;
@@ -26,7 +26,7 @@ namespace MineSweeperSemester2Test
             Assert.AreEqual(fieldSize, (horizontal * vertical));
         }
         [Test]
-        public void MinePLacerTest() 
+        public void MinePLacerTest()
         {
             int horizontal = 10;
             int vertical = 10;
@@ -70,15 +70,15 @@ namespace MineSweeperSemester2Test
             mines.AroundEachCell(field);
             for (int j = 0; j < horizontal; j++)
             {
-                for(int k = 0; k < vertical; k++)
+                for (int k = 0; k < vertical; k++)
                 {
-                    if(field[j, k].IsMine != 1)
+                    if (field[j, k].IsMine != 1)
                     {
                         Console.Write(field[j, k].AmountOfMinesAroundCell + " ");
                     }
                     else
                     {
-                        Console.Write( "m ");
+                        Console.Write("m ");
                     }
                 }
                 Console.WriteLine();

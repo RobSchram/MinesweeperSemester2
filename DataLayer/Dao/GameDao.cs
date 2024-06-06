@@ -1,13 +1,7 @@
 ﻿using LogicLayer;
+using LogicLayer.interfaces;
 using Minesweeper.Data;
 using MySql.Data.MySqlClient;
-using LogicLayer.interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static DataLayer.Dao.GameDao;
 
 namespace DataLayer.Dao
 {
@@ -74,7 +68,7 @@ namespace DataLayer.Dao
                     }
                 }
             }
-            
+
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);

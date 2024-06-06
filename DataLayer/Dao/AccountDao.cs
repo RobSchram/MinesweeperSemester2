@@ -2,11 +2,6 @@
 using LogicLayer.interfaces;
 using Minesweeper.Data;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataLayer.Dao
 {
@@ -71,11 +66,11 @@ namespace DataLayer.Dao
                             while (reader.Read())
                             {
                                 ApplicationUser user = new ApplicationUser();
-                                user.SetUserName (userName);
-                                user.SetPassWord( (string)reader["password"]);
-                                user.SetId ( (int)reader["user_id"]);
+                                user.SetUserName(userName);
+                                user.SetPassWord((string)reader["password"]);
+                                user.SetId((int)reader["user_id"]);
                                 Console.WriteLine($"User ID: {reader["user_id"]}, User Name: {reader["name"]}");
-                                return user ;
+                                return user;
                             }
                         }
                     }
