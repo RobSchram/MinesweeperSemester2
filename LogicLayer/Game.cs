@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    internal class Game
+    public class Game
     {
+        public int GameId {  get; private set; }
+        public int UserId { get; private set; }
+        public string? GameStatus { get; private set; }
+        public void SetGameProgress(string gameStatus)
+        {
+            GameStatus = gameStatus;
+        }
+        public void SetUserId(int userId) 
+        {
+            UserId = userId;
+        }
+        public void SetGameId(int gameId)
+        {
+            GameId = gameId;
+        }
+
+
     }
 }

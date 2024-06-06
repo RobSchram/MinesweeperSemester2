@@ -16,32 +16,39 @@ namespace DataLayer.Dao
             _databaseConnection = databaseConnection;
         }
 
-        public FieldDto GetField()
+        public FieldDto GetField(int gameId)
         {
-            var (horizontal, vertical)=GetFieldDimensions();
-            FieldDto fieldDto = new FieldDto(horizontal , vertical);
-            var query = "SELECT * FROM cell";
+            var (horizontal, vertical) = GetFieldDimensions();
+            FieldDto fieldDto = new FieldDto(horizontal, vertical);
+            var query = "SELECT * FROM cell WHERE game_id = @gameId";
             try
             {
                 _databaseConnection.OpenConnection();
-                MySqlCommand cmd = new MySqlCommand(query, _databaseConnection.myConnection);
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (MySqlCommand cmd = new MySqlCommand(query, _databaseConnection.myConnection))
                 {
-                    CellDto cell = new CellDto
-                    {
-                        Horizontal = (int)reader["horizontal"],
-                        Vertical = (int)reader["vertical"],
-                        IsMine = (int)reader["is_mine"],
-                        IsVisible = (int)reader["is_visible"],
-                        AmountOfMinesAroundCell = (int)reader["amount_of_mines_around_cell"]
-                    };
-                        fieldDto.MineField[cell.Horizontal, cell.Vertical] = cell;
-                    
-                }
+                    cmd.Parameters.AddWithValue("@gameId", gameId);
 
-                reader.Close();
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                CellDto cell = new CellDto
+                                {
+                                    GameId = (int)reader["game_id"],
+                                    Horizontal = (int)reader["horizontal"],
+                                    Vertical = (int)reader["vertical"],
+                                    IsMine = (int)reader["is_mine"],
+                                    IsVisible = (int)reader["is_visible"],
+                                    AmountOfMinesAroundCell = (int)reader["amount_of_mines_around_cell"]
+                                };
+                                fieldDto.MineField[cell.Horizontal, cell.Vertical] = cell;
+                            }
+                        }
+                        else { Console.WriteLine("no field found"); }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -54,27 +61,7 @@ namespace DataLayer.Dao
 
             return fieldDto;
         }
-        public void ClearField()
-        {
-            try
-            {
-                _databaseConnection.OpenConnection();
-                string query = "DELETE FROM Cell";
 
-                using (MySqlCommand cmd = new MySqlCommand(query, _databaseConnection.myConnection))
-                {
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                _databaseConnection.CloseConnection();
-            }
-        }
         public void StoreField(Cell[,] mineField)
         {
             try
@@ -83,11 +70,12 @@ namespace DataLayer.Dao
 
                 foreach (Cell cell in mineField)
                 {
-                    string query = "INSERT INTO Cell (horizontal, vertical, is_mine, is_visible, amount_of_mines_around_cell) " +
-                                   "VALUES (@horizontal, @vertical, @is_mine, @is_visible, @amount_of_mines_around_cell)";
+                    string query = "INSERT INTO Cell (game_id, horizontal, vertical, is_mine, is_visible, amount_of_mines_around_cell) " +
+                                   "VALUES (@gameId, @horizontal, @vertical, @is_mine, @is_visible, @amount_of_mines_around_cell)";
 
                     using (MySqlCommand cmd = new MySqlCommand(query, _databaseConnection.myConnection))
                     {
+                        cmd.Parameters.AddWithValue("@gameId", cell.GameId);
                         cmd.Parameters.AddWithValue("@horizontal", cell.Horizontal);
                         cmd.Parameters.AddWithValue("@vertical", cell.Vertical);
                         cmd.Parameters.AddWithValue("@is_mine", cell.IsMine);

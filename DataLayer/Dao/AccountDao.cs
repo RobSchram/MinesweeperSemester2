@@ -54,26 +54,28 @@ namespace DataLayer.Dao
             }
             return false;
         }
-        public bool SearchAccount(string userName, string passWord)
+        public ApplicationUser SearchAccount(string userName)
         {
             try
             {
                 _databaseConnection.OpenConnection();
-                string query = "SELECT * FROM user WHERE password = @passWord AND name = @userName";
+                string query = "SELECT * FROM user WHERE name = @userName";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, _databaseConnection.myConnection))
                 {
-                    cmd.Parameters.AddWithValue("@passWord", passWord);
                     cmd.Parameters.AddWithValue("@userName", userName);
-
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
+                                ApplicationUser user = new ApplicationUser();
+                                user.UserName = userName;
+                                user.Password = (string)reader["password"];
+                                user.Id = (int)reader["user_id"];
                                 Console.WriteLine($"User ID: {reader["user_id"]}, User Name: {reader["name"]}");
-                                return true;
+                                return user ;
                             }
                         }
                     }
@@ -87,7 +89,7 @@ namespace DataLayer.Dao
             {
                 _databaseConnection.CloseConnection();
             }
-            return false;
+            return null;
         }
     }
 }

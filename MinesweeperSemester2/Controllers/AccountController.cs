@@ -1,5 +1,9 @@
 ﻿using LogicLayer.interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using LogicLayer;
 
 public class AccountController : Controller
 {
@@ -22,21 +26,42 @@ public class AccountController : Controller
     [HttpPost]
     public IActionResult Register(AccountModel model)
     {
-
-        if (_accountService.CreateUser(model.Username, model.Password)) return RedirectToAction("LogIn", "Account");
+        var hashedPassword = _accountService.HashPassword(model.Password);
+        if (_accountService.CreateUser(model.Username, hashedPassword)) return RedirectToAction("LogIn", "Account");
 
         return View(model);
     }
 
     [HttpPost]
-    public IActionResult LogIn(AccountModel model)
+    public async Task<IActionResult> LogIn(AccountModel model)
     {
-
-            if (_accountService.SearchAccount(model.Username, model.Password))
+        
+        ApplicationUser user = _accountService.SearchAccount(model.Username);
+        if (user != null &&_accountService.VerifyPassword(user.Password, model.Password))
+        {
+            var claims = new List<Claim>
             {
-                return RedirectToAction("Privacy", "Home");
-            }
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, model.Username),
+            };
 
+            var claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = true,
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+
+            return RedirectToAction("Privacy", "Home");
+        }
+
+        // Gebruiker niet gevonden, terug naar inlogpagina
         return View(model);
     }
 }

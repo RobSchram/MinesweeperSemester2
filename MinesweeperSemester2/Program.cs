@@ -6,6 +6,7 @@ using Minesweeper.Data;
 using LogicLayer.Dto;
 using LogicLayer;
 using DataLayer.Dao;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +21,16 @@ builder.Services.AddScoped<FieldGenerator>();
 builder.Services.AddScoped<ICellDao , CellDao>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAccountDao , AccountDao>();
+builder.Services.AddScoped<IGameDao , GameDao>();
+builder.Services.AddScoped<IGameService , GameService>();
+builder.Services.AddScoped<Game>();
 
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/LogIn"; // De route waar gebruikers naar worden omgeleid om in te loggen
+        options.AccessDeniedPath = "/Account/AccessDenied"; // De route waar gebruikers naar worden omgeleid als ze geen toegang hebben
+    });
 
 var app = builder.Build();
 

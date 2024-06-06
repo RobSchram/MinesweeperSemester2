@@ -14,13 +14,14 @@ namespace DataLayer.Dao
             try
             {
                 databaseConnection.OpenConnection();
-                string query = "UPDATE Cell SET is_visible = @IsVisible WHERE horizontal = @Horizontal AND vertical = @Vertical";
+                string query = "UPDATE Cell SET is_visible = @IsVisible WHERE game_id = @gameId AND horizontal = @Horizontal AND vertical = @Vertical";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, databaseConnection.myConnection))
                 {
                     cmd.Parameters.AddWithValue("@IsVisible", cell.IsVisible);
                     cmd.Parameters.AddWithValue("@Horizontal", cell.Horizontal);
                     cmd.Parameters.AddWithValue("@Vertical", cell.Vertical);
+                    cmd.Parameters.AddWithValue("@gameId" , cell.GameId);
                     cmd.ExecuteNonQuery();
                 }
             }

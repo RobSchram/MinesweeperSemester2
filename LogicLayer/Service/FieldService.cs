@@ -10,36 +10,43 @@ namespace LogicLayer.Service
         private readonly IFieldDao _fieldDao;
         public FieldService(CellRevealer cellRevealer, IFieldDao fieldDao)
         {
-            _cellRevealer = cellRevealer;
             _fieldDao = fieldDao;
+            _cellRevealer = cellRevealer;
         }
-        public Cell[,] GenerateField(int horizontal, int vertical, decimal minePercent)
+
+        public Cell[,] GenerateField(int gameId,int horizontal, int vertical, decimal minePercent)
         {
 
             var generator = new FieldGenerator();
-            var field = generator.GenerateField(horizontal, vertical);
+            var field = generator.GenerateField(gameId,horizontal, vertical);
 
             Mines mines = new Mines();
             mines.Placer(field);
 
             mines.AroundEachCell(field);
-            _fieldDao.ClearField();
             _fieldDao.StoreField(field);
 
             return field;
         }
 
-        public FieldDto GetField()
+        public FieldDto GetField(int gameId)
         {
-            return _fieldDao.GetField();
+            return _fieldDao.GetField(gameId);
         }
-        public string RevealCell(int row, int col)
+        public string GetGameStatus(int gameId)
         {
             GameProgress gameProgress = new GameProgress();
-            var fieldDto = _fieldDao.GetField();
-            Field field = ConvertToField(fieldDto);
+            var fieldDto = GetField(gameId);
+            var field = ConvertToField(fieldDto);
+            string gameProg = gameProgress.GameStatus(field.MineField);
+            return gameProg;
+        }
+        public void RevealCell(int gameId, int row, int col)
+        {
+            var fieldDto = GetField(gameId);
+            var field = ConvertToField(fieldDto);
             _cellRevealer.RevealCell(field.MineField[row, col], field.MineField);
-            return gameProgress.GameStatus(field.MineField);
+            return;
         }
 
         private Field ConvertToField(FieldDto fieldDto)
@@ -53,7 +60,8 @@ namespace LogicLayer.Service
                     cellDto.Vertical,
                     cellDto.IsMine,
                     cellDto.IsVisible,
-                    cellDto.AmountOfMinesAroundCell
+                    cellDto.AmountOfMinesAroundCell,
+                    cellDto.GameId
                 );
             }
 

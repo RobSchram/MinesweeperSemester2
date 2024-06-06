@@ -37,30 +37,37 @@
             {
                 <h2> @Model.GameStatus</h2>
                 <div id="minesweeper-grid">
-                    @foreach (var cell in Model.field)
+                    @for (int i = 0; i < Model.field.GetLength(0); i++)
                     {
-                        <div class="cell" data-row="@cell.Horizontal" data-col="@cell.Vertical">
-                            <form method="post">
-                                @if (cell.IsVisible == 1)
-                                {
-                                    if (cell.IsMine == 1)
-                                    {
-                                        <div name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: red;"></div>
-                                    }
-                                    else
-                                    {
-                                        <div name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: gray;">@cell.MinesAroundCell</div>
-                                    }
-                                }
-                                else
-                                {
-                                    <div name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: white;"></div>
-                                }
-
-                            </form>
-                        </div>
+                        for (int j = 0; j < Model.field.GetLength(1); j++)
+                        {
+                            var cell = Model.field[i, j];
+                            if (cell != null)
+                            {
+                                <div class="cell" data-row="@cell.Horizontal" data-col="@cell.Vertical">
+                                    <form method="post">
+                                        @if (cell.IsVisible == 1)
+                                        {
+                                            if (cell.IsMine == 1)
+                                            {
+                                                <div name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: red;"></div>
+                                            }
+                                            else
+                                            {
+                                                <div name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: gray;">@cell.MinesAroundCell</div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div name="cell" value="@cell.Vertical,@cell.Horizontal" class="cell" style="background-color: white;"></div>
+                                        }
+                                    </form>
+                                </div>
+                            }
+                        }
                     }
                 </div>
+
             }
             else
             {

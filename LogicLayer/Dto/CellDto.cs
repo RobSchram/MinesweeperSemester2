@@ -13,5 +13,6 @@ namespace LogicLayer.Dto
         public int IsMine { get; set; }
         public int IsVisible { get; set; }
         public int AmountOfMinesAroundCell { get; set; }
+        public int GameId {  get; set; }
     }
 }

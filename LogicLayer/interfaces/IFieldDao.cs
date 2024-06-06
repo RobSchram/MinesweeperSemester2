@@ -9,8 +9,7 @@ namespace LogicLayer.interfaces
 {
     public interface IFieldDao
     {
-        public FieldDto GetField();
-        public void ClearField();
+        public FieldDto GetField(int gameId);
         public void StoreField(Cell[,] mineField);
     }
 }
