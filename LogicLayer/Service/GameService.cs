@@ -37,8 +37,5 @@ namespace LogicLayer.Service
         {
             return _gameDao.GetLastGameFromUser(userId);
         }
-
-
-
     }
 }

@@ -18,7 +18,7 @@ namespace DataLayer.Dao
 
         public FieldDto GetField(int gameId)
         {
-            var (horizontal, vertical) = GetFieldDimensions();
+            var (horizontal, vertical) = GetFieldDimensions(gameId);
             FieldDto fieldDto = new FieldDto(horizontal, vertical);
             var query = "SELECT * FROM cell WHERE game_id = @gameId";
             try
@@ -96,19 +96,22 @@ namespace DataLayer.Dao
                 _databaseConnection.CloseConnection();
             }
         }
-        public (int horizontal, int vertical) GetFieldDimensions()
+        public (int horizontal, int vertical) GetFieldDimensions(int gameId)
         {
             int horizontal = 0;
             int vertical = 0;
-            var queryHorizontal = "SELECT COUNT(DISTINCT horizontal) FROM cell";
-            var queryVertical = "SELECT COUNT(DISTINCT vertical) FROM cell";
+            var queryHorizontal = "SELECT COUNT(DISTINCT horizontal) FROM cell WHERE game_id = @gameId";
+            var queryVertical = "SELECT COUNT(DISTINCT vertical) FROM cell WHERE game_id = @gameId";
 
             try
             {
                 _databaseConnection.OpenConnection();
+                
                 MySqlCommand cmdHorizontal = new MySqlCommand(queryHorizontal, _databaseConnection.myConnection);
+                cmdHorizontal.Parameters.AddWithValue("@gameId", gameId);
                 horizontal = Convert.ToInt32(cmdHorizontal.ExecuteScalar());
                 MySqlCommand cmdVertical = new MySqlCommand(queryVertical, _databaseConnection.myConnection);
+                cmdVertical.Parameters.AddWithValue("@gameId", gameId);
                 vertical = Convert.ToInt32(cmdVertical.ExecuteScalar());
             }
             catch (Exception ex)

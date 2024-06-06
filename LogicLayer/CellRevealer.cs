@@ -28,21 +28,21 @@ namespace LogicLayer.Service
 
         private void RevealAdjacentCells(Cell[,] field, Cell cell)
         {
-            int rows = field.GetLength(0);
-            int cols = field.GetLength(1);
+            int horizontal = field.GetLength(0);
+            int vertical = field.GetLength(1);
 
             for (int r = cell.Horizontal - 1; r <= cell.Horizontal + 1; r++)
             {
                 for (int c = cell.Vertical - 1; c <= cell.Vertical + 1; c++)
                 {
-                    if (r >= 0 && r < rows && c >= 0 && c < cols && !(r == cell.Horizontal && c == cell.Vertical))
+                    if (r >= 0 && r < horizontal && c >= 0 && c < vertical && !(r == cell.Horizontal && c == cell.Vertical))
                     {
                         var newCell = field[r, c];
                         if (newCell.IsVisible == 0 && newCell.IsMine == 0)
                         {
                             newCell.MakeCellVisible();
                             _cellDao.UpdateCell(newCell);
-                            if (newCell.AmountOfMinesAroundCell == 0)
+                            if (newCell.AmountOfMinesAroundCell == 0 && newCell.IsMine != 1)
                             {
                                 RevealAdjacentCells(field, newCell);
                             }

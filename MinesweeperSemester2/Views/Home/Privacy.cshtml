@@ -3,36 +3,48 @@
 <html>
 <head>
     <title>Minesweeper</title>
-    <style>
-        #minesweeper-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 30px);
-            grid-template-rows: repeat(10, 30px);
-        }
+    @if(Model != null)
+    {
+        <style>
+            #minesweeper-grid {
+                display: grid;
+                grid-template-columns: repeat(@Model.field.GetLength(0), 30px);
+                grid-template-rows: repeat(@Model.field.GetLength(1), 30px);
+            }
 
-        #model {
-            display: flex;
-            flex-direction: column;
-        }
+            #model {
+                display: flex;
+                flex-direction: column;
+            }
 
-        .cell {
-            width: 30px;
-            height: 30px;
-            border: 1px solid #000;
-        }
-    </style>
+            .cell {
+                width: 30px;
+                height: 30px;
+                border: 1px solid #000;
+            }
+        </style>
+    }
 </head>
 <body>
 
     <form action="@Url.Action("StartGame", "Home")" method="post">
+        <h3>horizontal fieldsize</h3>
+        <input type="number" name="Horizontal"/>
+        <h3>vertical fieldSize</h3>
+        <input type="number" name="Vertical"/>
+        <h3>MinePercent: 100-1</h3>
+        <input type="number" name="MinePercent"/>
+
         <button type="submit">Start game</button>
     </form>
+    
     <form action="@Url.Action("LoadGame", "Home")" method="post">
         <button type="submit">Load game</button>
     </form>
     <div id="model">
         @if (Model != null)
         {
+
             if (Model.GameStatus != "In progress")
             {
                 <h2> @Model.GameStatus</h2>
@@ -44,7 +56,7 @@
                             var cell = Model.field[i, j];
                             if (cell != null)
                             {
-                                <div class="cell" data-row="@cell.Horizontal" data-col="@cell.Vertical">
+                                <div class="cell" data-role="@cell.Horizontal" data-col="@cell.Vertical">
                                     <form method="post">
                                         @if (cell.IsVisible == 1)
                                         {
@@ -76,8 +88,9 @@
                     {
                         <div class="cell" data-row="@cell.Horizontal" data-col="@cell.Vertical">
                             <form action="@Url.Action("CellClick", "Home")" method="post">
-                                <input type="hidden" name="row" value="@cell.Vertical" />
-                                <input type="hidden" name="col" value="@cell.Horizontal" />
+                                <input type="hidden" name="horizontal" value="@cell.Horizontal" />
+                                <input type="hidden" name="vertical" value="@cell.Vertical" />
+
                                 @if (cell.IsVisible == 1)
                                 {
                                     if (cell.IsMine == 1)

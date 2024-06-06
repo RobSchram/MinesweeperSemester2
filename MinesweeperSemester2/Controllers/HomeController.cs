@@ -36,11 +36,9 @@ namespace MinesweeperSemester2.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult StartGame()
+        public IActionResult StartGame( int horizontal, int vertical, decimal minePercent)
         {
-            decimal minePercent = 0.15m;
-            int horizontal = 10;
-            int vertical = 10;
+            minePercent = minePercent / 100;
             int userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             Game game = new Game();
             game.SetUserId(userId);
@@ -113,11 +111,11 @@ namespace MinesweeperSemester2.Controllers
         }
 
         [HttpPost]
-        public IActionResult CellClick(int row, int col)
+        public IActionResult CellClick(int horizontal, int vertical)
         {
             int userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             var game = _gameService.GetLastGameFromUser(userId);
-            _fieldService.RevealCell(game.GameId, col, row);
+            _fieldService.RevealCell(game.GameId, horizontal, vertical);
             _gameService.UpdateGameStatus(game);
             return LoadGame();
         }

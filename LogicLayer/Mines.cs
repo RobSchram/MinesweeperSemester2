@@ -8,12 +8,11 @@ namespace LogicLayer
 {
     public class Mines
     {
-        public void Placer(Cell[,] field)
+        public void Placer(Cell[,] field, decimal minePercent)
         {
             int horizontal = field.GetLength(0);
             int vertical = field.GetLength(1);
-            decimal minePercent = 0.15m;
-            decimal amountOfMines = Convert.ToDecimal( horizontal * vertical)*minePercent;
+            decimal amountOfMines = Convert.ToInt32(Math.Round(Convert.ToDecimal(horizontal * vertical) * minePercent));
 
             Random random = new Random();
             for (int i = 0; i < amountOfMines; i++)
@@ -43,7 +42,6 @@ namespace LogicLayer
                     {
                         for (int yOffset = -1; yOffset <= 1; yOffset++)
                         {
-                            if (xOffset == 0 && yOffset == 0) continue;
 
                             int neighborX = h + xOffset;
                             int neighborY = v + yOffset;
@@ -63,5 +61,5 @@ namespace LogicLayer
                 }
             }
         }
-        }
+    }
 }

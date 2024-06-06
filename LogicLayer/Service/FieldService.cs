@@ -21,7 +21,7 @@ namespace LogicLayer.Service
             var field = generator.GenerateField(gameId,horizontal, vertical);
 
             Mines mines = new Mines();
-            mines.Placer(field);
+            mines.Placer(field, minePercent);
 
             mines.AroundEachCell(field);
             _fieldDao.StoreField(field);
@@ -41,11 +41,11 @@ namespace LogicLayer.Service
             string gameProg = gameProgress.GameStatus(field.MineField);
             return gameProg;
         }
-        public void RevealCell(int gameId, int row, int col)
+        public void RevealCell(int gameId, int horizontal, int vertical)
         {
             var fieldDto = GetField(gameId);
             var field = ConvertToField(fieldDto);
-            _cellRevealer.RevealCell(field.MineField[row, col], field.MineField);
+            _cellRevealer.RevealCell(field.MineField[horizontal, vertical], field.MineField);
             return;
         }
 
